@@ -1,0 +1,7 @@
+div.sagaio-udm-icon:hover {
+    cursor: pointer;
+}
+a.sagaio-udm-menu-item:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
