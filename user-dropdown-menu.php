@@ -7,7 +7,7 @@
 Plugin Name: User Dropdown Menu
 Plugin URI: http://www.sagaio.com/moduler/
 Description: Insert a dropdown menu with a icon button, based on Bootstrap 4.0 Dropdown. All settings can be found in the Theme Customizer.
-Version: 1.0.0
+Version: 1.0.1
 Author: SAGAIO
 Author URI: http://www.sagaio.com
 License: GPLv2 or later
@@ -144,11 +144,13 @@ class UserDropdownMenu {
         }
 
 
-        /* Login form: button alignments */
-        $login_form_button_alignments = [];
-        $login_form_button_alignments[] = array( 'slug'=>'sagaio_udm_login_button_alignment', 'default' => 'left', 'label' => __( 'Align button left/center/right', 'sagaio-udm' ) );
+        /* Login form: alignments */
+        $login_form_alignments = [];
 
-        foreach($login_form_button_alignments as $setting)
+        $login_form_alignments[] = array( 'slug'=>'sagaio_udm_login_header_alignment', 'default' => 'left', 'label' => __( 'Align header left/center/right', 'sagaio-udm' ) );
+        $login_form_alignments[] = array( 'slug'=>'sagaio_udm_login_button_alignment', 'default' => 'left', 'label' => __( 'Align button left/center/right', 'sagaio-udm' ) );
+
+        foreach($login_form_alignments as $setting)
         {
             $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
             $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_login_form', 'choices' => array( 'left' => 'Left', 'center' => 'Center', 'right' => 'Right') ));
@@ -157,6 +159,8 @@ class UserDropdownMenu {
 
         /* Login form: text fields */
         $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_header', 'default' => 'Login', 'label' => __( 'Label for the header above the fields', 'sagaio-udm' ), 'description' => 'Default is Login' );
+        $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_header_font_family', 'default' => 'Arial, sans-serif', 'label' => __( 'Header font family', 'sagaio-udm' ), 'description' => 'Default is Arial, sans-serif' );
+        $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_header_font_style', 'default' => 'normal', 'label' => __( 'Header font style', 'sagaio-udm' ), 'description' => 'Default is normal' );
         $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_text_username', 'default' => 'Username', 'label' => __( 'Label for Username', 'sagaio-udm' ), 'description' => 'Default is Username' );
         $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_text_password', 'default' => 'Password', 'label' => __( 'Label for Password', 'sagaio-udm' ), 'description' => 'Default is Password' );
         $login_form_settings[] = array( 'slug'=>'sagaio_udm_login_text_username_placeholder', 'default' => 'Username', 'label' => __( 'Placeholder for Username', 'sagaio-udm' ), 'description' => 'Default is Username' );
@@ -178,6 +182,7 @@ class UserDropdownMenu {
         /* Login form: color settings */
         $login_form_colors = [];
 
+        $login_form_colors[] = array( 'slug'=>'sagaio_udm_login_header_color', 'default' => '#1b1b1b', 'label' => __( 'Login header color', 'sagaio-udm' ) );
         $login_form_colors[] = array( 'slug'=>'sagaio_udm_login_label_color', 'default' => '#1b1b1b', 'label' => __( 'Text label color', 'sagaio-udm' ) );
         $login_form_colors[] = array( 'slug'=>'sagaio_udm_login_input_background_color', 'default' => '#f1f1f1', 'label' => __( 'Input background color', 'sagaio-udm' ) );
         $login_form_colors[] = array( 'slug'=>'sagaio_udm_login_input_border_color', 'default' => '#f1f1f1', 'label' => __( 'Input border color', 'sagaio-udm' ) );
@@ -201,6 +206,12 @@ class UserDropdownMenu {
         }
 
         /* Login form: height, widths, margins and paddings */
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_font_size', 'default' => '20', 'label' => __( 'Login header font size', 'sagaio-udm' ) );
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_line_height', 'default' => '24', 'label' => __( 'Login header line height', 'sagaio-udm' ) );
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_margin_top', 'default' => '0', 'label' => __( 'Login header margin-top', 'sagaio-udm' ) );
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_margin_right', 'default' => '0', 'label' => __( 'Login header margin-right', 'sagaio-udm' ) );
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_margin_bottom', 'default' => '0', 'label' => __( 'Login header margin-bottom', 'sagaio-udm' ) );
+        $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_header_margin_left', 'default' => '0', 'label' => __( 'Login header margin-left', 'sagaio-udm' ) );
         $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_fields_margin_top', 'default' => '0', 'label' => __( 'Input fields margin-top', 'sagaio-udm' ) );
         $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_fields_margin_right', 'default' => '0', 'label' => __( 'Input fields margin-right', 'sagaio-udm' ) );
         $login_form_hwmp[] = array( 'slug'=>'sagaio_udm_login_fields_margin_bottom', 'default' => '0', 'label' => __( 'Input fields margin-bottom', 'sagaio-udm' ) );
@@ -396,8 +407,18 @@ class UserDropdownMenu {
         $sagaio_udm_login_fields_margin_bottom = get_option('sagaio_udm_login_fields_margin_bottom', '0');
         $sagaio_udm_login_fields_margin_left = get_option('sagaio_udm_login_fields_margin_left', '0');
 
+        $sagaio_udm_login_header_margin_top = get_option('sagaio_udm_login_header_margin_top', '0');
+        $sagaio_udm_login_header_margin_right = get_option('sagaio_udm_login_header_margin_right', '0');
+        $sagaio_udm_login_header_margin_bottom = get_option('sagaio_udm_login_header_margin_bottom', '0');
+        $sagaio_udm_login_header_margin_left = get_option('sagaio_udm_login_header_margin_left', '0');
+        $sagaio_udm_login_header_font_family = get_option('sagaio_udm_login_header_font_family', 'Arial, sans-serif');
+        $sagaio_udm_login_header_font_style = get_option('sagaio_udm_login_header_font_style', 'normal');
+        $sagaio_udm_login_header_font_size = get_option('sagaio_udm_login_header_font_size', '20');
+        $sagaio_udm_login_header_color = get_option('sagaio_udm_login_header_color', '#1b1b1b');
+        $sagaio_udm_login_header_line_height = get_option('sagaio_udm_login_header_line_height', '24');
+
         // Alignments
-        $sagaio_udm_login_fields_alignment = get_option('sagaio_udm_login_fields_alignment', 'left');
+        $sagaio_udm_login_header_alignment = get_option('sagaio_udm_login_header_alignment', 'left');
         $sagaio_udm_login_button_alignment = get_option('sagaio_udm_login_button_alignment', 'left');
 
         // Determine if we whould display labels for the input fields
@@ -457,6 +478,31 @@ class UserDropdownMenu {
             font-family: '.$sagaio_udm_user_font_family.';
             font-weight: '.$sagaio_udm_user_font_style.';
             font-size: '.$sagaio_udm_user_font_size.'px;
+        }';
+
+        if($sagaio_udm_login_header_alignment == 'left') {
+            $style .= '.sagaio-udm-login-header {
+                text-align: left;
+            }';
+        }
+        if($sagaio_udm_login_header_alignment == 'center') {
+            $style .= '.sagaio-udm-login-header {
+                text-align: center;
+            }';
+        }
+        if($sagaio_udm_login_header_alignment == 'right') {
+            $style .= '.sagaio-udm-login-header {
+                text-align: right;
+            }';
+        }
+
+        $style .= '.sagaio-udm-login-header {
+            font-family: '.$sagaio_udm_login_header_font_family.';
+            font-weight: '.$sagaio_udm_login_header_font_style.';
+            font-size: '.$sagaio_udm_login_header_font_size.'px;
+            color: '.$sagaio_udm_login_header_color.';
+            line-height:  '.$sagaio_udm_login_header_line_height.'px;
+            margin: '.$sagaio_udm_login_header_margin_top.'px '.$sagaio_udm_login_header_margin_right.'px '.$sagaio_udm_login_header_margin_bottom.'px '.$sagaio_udm_login_header_margin_left.'px ;
         }';
         $style .= '#sagaio-udm-login-form input[type="text"], #sagaio-udm-login-form input[type="password"] {
             font-family: '.$sagaio_udm_login_input_font_family.';
@@ -634,7 +680,7 @@ class UserDropdownMenu {
                     $menu_list .= '<div class="dropdown-menu sagaio-udm-menu">' . "\n";
                     if(get_option('sagaio_udm_display_login_header', true)) {
                         $header = get_option('sagaio_udm_login_header', 'Login');
-                        $menu_list .= '<div class="dsagaio-udm-menu-header">'.$header.'</div>'. "\n";
+                        $menu_list .= '<div class="sagaio-udm-login-header">'.$header.'</div>'. "\n";
                     }
                     $menu_list .= wp_login_form( $args );
                 }
