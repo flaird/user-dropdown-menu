@@ -67,15 +67,15 @@ Start a topic in the support section
 *2016-11-17*
 
 * Fix: Shortcode was using ```echo``` and is now using ```return``` instead.
-* Fix: Position of inner wrapper changed to relative to contain dropdown menu-
+* Fix: Position of inner wrapper changed to relative to contain dropdown menu.
 * Update: ```#sagaio-udm-menu-wrapper``` changed name to ```#sagaio-udm-menu-inner-wrapper```.
-* New: Added outer wrapper and options for configuring its position, id: ```#sagaio-udm-menu-wrapper``.
+* New: Added outer wrapper and options for configuring its position, id: ```#sagaio-udm-menu-wrapper```.
 
 = 1.0.1 =
 *2016-11-14*
 
-* Fix: Typo in ```<div class="sagaio-udm-menu-header">``.
-* New: Options for configuring the login header, class: ```.sagaio-udm-menu-header``.
+* Fix: Typo in ```<div class="sagaio-udm-menu-header">```.
+* New: Options for configuring the login header, class: ```.sagaio-udm-menu-header```.
 
 = 1.0.0 =
 *2016-11-14*
