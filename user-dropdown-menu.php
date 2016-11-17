@@ -96,17 +96,29 @@ class UserDropdownMenu {
         }
 
         /* Icon: height, widths, margins and paddings */
-        $general_icon_settings = [];
+        $icon_hwmp = [];
 
-        $general_icon_settings[] = array( 'slug'=>'sagaio_udm_icon_width', 'default' => '30', 'label' => __( 'Icon width', 'sagaio-udm' ) );
-        $general_icon_settings[] = array( 'slug'=>'sagaio_udm_icon_height', 'default' => '30', 'label' => __( 'Icon height', 'sagaio-udm' ) );
-        $general_icon_settings[] = array( 'slug'=>'sagaio_udm_icon_margin', 'default' => '0', 'label' => __( 'Icon margin', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_width', 'default' => '30', 'label' => __( 'Icon width', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_height', 'default' => '30', 'label' => __( 'Icon height', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin', 'default' => '0', 'label' => __( 'Icon margin', 'sagaio-udm' ) );
 
-        foreach($general_icon_settings as $setting)
+        foreach($icon_hwmp as $setting)
         {
             $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
             $wp_customize->add_control( $setting['slug'], array( 'type' => 'number', 'label' => $setting['label'], 'section' => 'sagaio_udm_icon', 'input_attrs' => array( 'min' => 0, 'max' => 100) ));
         }
+
+        /* Icon: position */
+        $icon_positions = [];
+
+        $icon_positions[] = array( 'slug'=>'sagaio_udm_icon_outer_wrapper_position', 'default' => 'relative', 'label' => __( 'Outer wrapper position', 'sagaio-udm' ) );
+
+        foreach($icon_positions as $setting)
+        {
+            $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
+            $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_icon', 'choices' => array( 'relative' => 'Relative', 'absolute' => 'Absolute', 'fixed' => 'Fixed', 'static' => 'Static' ) ));
+        }
+
 
         /* Login form: border */
         $login_form_border[] = array( 'slug'=>'sagaio_udm_login_button_border_width', 'default' => '1', 'label' => __( 'Login button border width', 'sagaio-udm' ) );
@@ -421,6 +433,9 @@ class UserDropdownMenu {
         $sagaio_udm_login_header_alignment = get_option('sagaio_udm_login_header_alignment', 'left');
         $sagaio_udm_login_button_alignment = get_option('sagaio_udm_login_button_alignment', 'left');
 
+        // Outer Wrapper Position
+        $sagaio_udm_icon_outer_wrapper_position = get_option('sagaio_udm_icon_outer_wrapper_position', 'relative');
+
         // Determine if we whould display labels for the input fields
         $display_login_labels = get_option('sagaio_udm_display_login_labels', false);
         if(!$display_login_labels) {
@@ -430,6 +445,9 @@ class UserDropdownMenu {
         }
 
         $style = '<style>';
+        $style .= '#sagaio-udm-wrapper {
+            position: '.$sagaio_udm_icon_outer_wrapper_position.' !important;
+        }';
         $style .= '.sagaio-udm-menu {
             background: '.$sagaio_udm_menu_background_color.' !important;
             color: '.$sagaio_udm_menu_text_color.' !important;
@@ -597,7 +615,7 @@ class UserDropdownMenu {
 
             $menu_items = wp_get_nav_menu_items($menu->term_id);
 
-            $menu_list = '<div id="sagaio-udm-wrapper"><div class="dropdown sagaio-udm-icon" data-toggle="dropdown"></div>' . "\n";
+            $menu_list = '<div id="sagaio-udm-wrapper"><div id="sagaio-udm-inner-wrapper"><div class="dropdown sagaio-udm-icon" data-toggle="dropdown"></div>' . "\n";
             $menu_list .= '<div class="dropdown-menu sagaio-udm-menu">' . "\n";
 
             // Check if user is logged in
@@ -676,7 +694,7 @@ class UserDropdownMenu {
                     );
 
                     // important: Restart menu list string concatenation
-                    $menu_list = '<div id="sagaio-udm-wrapper"><div class="dropdown sagaio-udm-icon" data-toggle="dropdown"></div>' . "\n";
+                    $menu_list = '<div id="sagaio-udm-wrapper"><div id="sagaio-udm-inner-wrapper"><div class="dropdown sagaio-udm-icon" data-toggle="dropdown"></div>' . "\n";
                     $menu_list .= '<div class="dropdown-menu sagaio-udm-menu">' . "\n";
                     if(get_option('sagaio_udm_display_login_header', true)) {
                         $header = get_option('sagaio_udm_login_header', 'Login');
@@ -688,14 +706,14 @@ class UserDropdownMenu {
             }
 
             $menu_list .= '</div>' ."\n";
-            $menu_list .= '</div></div>' ."\n";
+            $menu_list .= '</div></div></div>' ."\n";
 
             wp_enqueue_style( 'udm-bootstrap-css');
             wp_enqueue_style( 'udm-style');
             wp_enqueue_script( 'udm-boostrap');
 
             self::echo_customizer_styles();
-            echo $menu_list;
+            return $menu_list;
 
             // Optionally echo out scripts for setting the attribute "placeholder" on the login input fields
             $placeholder_enabled = get_option('sagaio_udm_display_login_placeholders', true);

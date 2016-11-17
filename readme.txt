@@ -9,6 +9,20 @@ Licemse URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 Insert a dropdown menu with a icon button, based on Bootstrap 4.0 Dropdown. All settings can be found in the Theme Customizer.
 
+= Features =
+
+* Build your menu from the standard interface and assign it to User Dropdown Menu
+* All settings found in your Theme Customizer
+* Option to change the default icon image
+* Option to display login form that is customizable
+* Option to display header above login form
+* Option to display current username in menu
+* Option to display header above username
+* Option to display logout link
+* Lots of more options when it comes to styling
+
+Are you missing an option? Head over to https://github.com/sagaio/user-dropdown-menu and submit an issue.
+
 == Installation ==
 
 = From your WordPress dashboard =
@@ -49,11 +63,21 @@ Start a topic in the support section
 
 == Changelog ==
 
+= 1.0.2 =
+*2016-11-17*
+
+* Fix: Shortcode was using ```echo``` and is now using ```return``` instead.
+* Fix: Position of inner wrapper changed to relative to contain dropdown menu-
+* Update: ```#sagaio-udm-menu-wrapper``` changed name to ```#sagaio-udm-menu-inner-wrapper```.
+* New: Added outer wrapper and options for configuring its position, id: ```#sagaio-udm-menu-wrapper``.
+
 = 1.0.1 =
 *2016-11-14*
-* Fix: Typo in ```<div class="sagaio-udm-menu-header">```
-* New: Options for configuring the login header, class: ```.sagaio-udm-menu-header``
+
+* Fix: Typo in ```<div class="sagaio-udm-menu-header">``.
+* New: Options for configuring the login header, class: ```.sagaio-udm-menu-header``.
 
 = 1.0.0 =
 *2016-11-14*
+
 * First release
