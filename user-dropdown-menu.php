@@ -7,7 +7,7 @@
 Plugin Name: User Dropdown Menu
 Plugin URI: http://www.sagaio.com/moduler/
 Description: Insert a dropdown menu with a icon button, based on Bootstrap 4.0 Dropdown. All settings can be found in the Theme Customizer.
-Version: 1.0.1
+Version: 1.0.3
 Author: SAGAIO
 Author URI: http://www.sagaio.com
 License: GPLv2 or later
@@ -447,6 +447,9 @@ class UserDropdownMenu {
         $style = '<style>';
         $style .= '#sagaio-udm-wrapper {
             position: '.$sagaio_udm_icon_outer_wrapper_position.' !important;
+        }';
+        $style .= '#sagaio-udm-inner-wrapper {
+            position: relative !important;
         }';
         $style .= '.sagaio-udm-menu {
             background: '.$sagaio_udm_menu_background_color.' !important;

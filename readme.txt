@@ -3,7 +3,7 @@ Contributors: sagaio
 Tags: dropdown menu, user dropdown menu, dropdown, woocommerce menu, menu
 Requires at least: 4.5.2
 Tested up to: 4.5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.3
 License: GPLv2 or later
 Licemse URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
@@ -62,6 +62,11 @@ Start a topic in the support section
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.3 =
+*2016-11-17*
+
+* Fix: CSS for outer and inner wrapper
 
 = 1.0.2 =
 *2016-11-17*
