@@ -3,7 +3,7 @@ Contributors: sagaio
 Tags: dropdown menu, user dropdown menu, dropdown, woocommerce menu, menu
 Requires at least: 4.5.2
 Tested up to: 4.5.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 Licemse URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
@@ -63,12 +63,28 @@ Start a topic in the support section
 
 == Changelog ==
 
+= 1.0.4 =
+
+*2016-11-17*
+
+* New: Choose at what side the dropdown content shall appear (right / left)
+* New: Control margin of the icon
+* New: Set dropdown content width
+* New: Set alignment (text-align left/center/right) of username and user header
+* New: Set line-height of user header and user text
+* New: Choose to display border-bottom for username (same settings as menu item border)
+* Fix: Set line-height of menu items
+* Fix: Refactor get_option statements
+* Fix: Border bottom of menu items now appear more accurate
+
 = 1.0.3 =
+
 *2016-11-17*
 
 * Fix: CSS for outer and inner wrapper
 
 = 1.0.2 =
+
 *2016-11-17*
 
 * Fix: Shortcode was using ```echo``` and is now using ```return``` instead.
@@ -77,12 +93,14 @@ Start a topic in the support section
 * New: Added outer wrapper and options for configuring its position, id: ```#sagaio-udm-menu-wrapper```.
 
 = 1.0.1 =
+
 *2016-11-14*
 
 * Fix: Typo in ```<div class="sagaio-udm-menu-header">```.
 * New: Options for configuring the login header, class: ```.sagaio-udm-menu-header```.
 
 = 1.0.0 =
+
 *2016-11-14*
 
 * First release

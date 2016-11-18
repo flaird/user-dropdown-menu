@@ -7,7 +7,7 @@
 Plugin Name: User Dropdown Menu
 Plugin URI: http://www.sagaio.com/moduler/
 Description: Insert a dropdown menu with a icon button, based on Bootstrap 4.0 Dropdown. All settings can be found in the Theme Customizer.
-Version: 1.0.3
+Version: 1.0.4
 Author: SAGAIO
 Author URI: http://www.sagaio.com
 License: GPLv2 or later
@@ -101,6 +101,10 @@ class UserDropdownMenu {
         $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_width', 'default' => '30', 'label' => __( 'Icon width', 'sagaio-udm' ) );
         $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_height', 'default' => '30', 'label' => __( 'Icon height', 'sagaio-udm' ) );
         $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin', 'default' => '0', 'label' => __( 'Icon margin', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin_top', 'default' => '0', 'label' => __( 'Icon margin-top', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin_right', 'default' => '0', 'label' => __( 'Icon margin-right', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin_bottom', 'default' => '0', 'label' => __( 'Icon margin-bottom', 'sagaio-udm' ) );
+        $icon_hwmp[] = array( 'slug'=>'sagaio_udm_icon_margin_left', 'default' => '0', 'label' => __( 'Icon margin-left', 'sagaio-udm' ) );
 
         foreach($icon_hwmp as $setting)
         {
@@ -119,6 +123,16 @@ class UserDropdownMenu {
             $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_icon', 'choices' => array( 'relative' => 'Relative', 'absolute' => 'Absolute', 'fixed' => 'Fixed', 'static' => 'Static' ) ));
         }
 
+        /* Icon: float */
+        $icon_float = [];
+
+        $icon_float[] = array( 'slug'=>'sagaio_udm_icon_outer_wrapper_float', 'default' => 'none', 'label' => __( 'Outer wrapper float', 'sagaio-udm' ) );
+
+        foreach($icon_float as $setting)
+        {
+            $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
+            $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_icon', 'choices' => array( 'none' => 'None', 'left' => 'Left', 'right' => 'Right' ) ));
+        }
 
         /* Login form: border */
         $login_form_border[] = array( 'slug'=>'sagaio_udm_login_button_border_width', 'default' => '1', 'label' => __( 'Login button border width', 'sagaio-udm' ) );
@@ -251,18 +265,40 @@ class UserDropdownMenu {
             $wp_customize->add_control( $setting['slug'], array( 'type' => 'number', 'label' => $setting['label'], 'section' => 'sagaio_udm_login_form', 'input_attrs' => array( 'min' => 0, 'max' => 100) ));
         }
 
+        /* Menu container: dropdown position */
+        $menu_dropdown_position = [];
+
+        $menu_dropdown_position[] = array( 'slug'=>'sagaio_udm_menu_container_position', 'default' => 'right', 'label' => __( 'Dropdown content position', 'sagaio-udm' ) );
+
+        foreach($menu_dropdown_position as $setting)
+        {
+            $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
+            $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_menu_container', 'choices' => array( 'right' => 'Right', 'left' => 'Left' )));
+        }
 
         /* Menu container: show and hide */
         $menu_radios = [];
 
         $menu_radios[] = array( 'slug'=>'sagaio_udm_display_user', 'default' => true, 'label' => __( 'Display current user name & lastname?', 'sagaio-udm' ) );
         $menu_radios[] = array( 'slug'=>'sagaio_udm_display_user_header', 'default' => true, 'label' => __( 'Display header above user?', 'sagaio-udm' ) );
+        $menu_radios[] = array( 'slug'=>'sagaio_udm_display_user_bottom_border', 'default' => true, 'label' => __( 'Display divider below user?', 'sagaio-udm' ) );
         $menu_radios[] = array( 'slug'=>'sagaio_udm_display_logout', 'default' => true, 'label' => __( 'Display logout link?', 'sagaio-udm' ) );
 
         foreach($menu_radios as $setting)
         {
             $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
             $wp_customize->add_control( $setting['slug'], array( 'type' => 'radio', 'label' => $setting['label'], 'section' => 'sagaio_udm_menu_container', 'choices' => array( true => __('Yes', 'sagaio-udm'), false => __('No', 'sagaio-udm') ) ));
+        }
+
+        /* Menu container: alignments */
+        $menu_alignments = [];
+
+        $menu_alignments[] = array( 'slug'=>'sagaio_udm_user_header_alignment', 'default' => 'left', 'label' => __( 'Align user header and username left/center/right', 'sagaio-udm' ) );
+
+        foreach($menu_alignments as $setting)
+        {
+            $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
+            $wp_customize->add_control( $setting['slug'], array( 'type' => 'select', 'label' => $setting['label'], 'section' => 'sagaio_udm_menu_container', 'choices' => array( 'left' => 'Left', 'center' => 'Center', 'right' => 'Right') ));
         }
 
         /* Menu container: text fields */
@@ -314,6 +350,7 @@ class UserDropdownMenu {
         /* Menu container: height, widths, margins and paddings */
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_border_width', 'default' => '2', 'label' => __( 'Menu border width', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_item_border_width', 'default' => '2', 'label' => __( 'Menu item border bottom width', 'sagaio-udm' ) );
+        $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_width', 'default' => '200', 'label' => __( 'Menu width', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_margin_top', 'default' => '15', 'label' => __( 'Menu top margin', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_padding_top', 'default' => '10', 'label' => __( 'Menu padding top', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_padding_right', 'default' => '10', 'label' => __( 'Menu padding right', 'sagaio-udm' ) );
@@ -325,14 +362,15 @@ class UserDropdownMenu {
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_item_font_size', 'default' => '24', 'label' => __( 'Menu item font size', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_menu_item_line_height', 'default' => '28', 'label' => __( 'Menu item line height', 'sagaio-udm' ) );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_user_header_font_size', 'default' => '12', 'label' => __( 'Header font size', 'sagaio-udm' ), 'description' => 'Default is 12px' );
+        $menu_hwmp[] = array( 'slug'=>'sagaio_udm_user_header_line_height', 'default' => '12', 'label' => __( 'Header line height', 'sagaio-udm' ), 'description' => 'Default is 12px' );
         $menu_hwmp[] = array( 'slug'=>'sagaio_udm_user_font_size', 'default' => '14', 'label' => __( 'Usertext font size', 'sagaio-udm' ), 'description' => 'Default is 14px' );
+        $menu_hwmp[] = array( 'slug'=>'sagaio_udm_user_line_height', 'default' => '26', 'label' => __( 'Usertext line height', 'sagaio-udm' ), 'description' => 'Default is 26px' );
 
         foreach($menu_hwmp as $setting)
         {
             $wp_customize->add_setting( $setting['slug'], array( 'default' => $setting['default'], 'type' => 'option', 'capability' => 'edit_theme_options' ));
-            $wp_customize->add_control( $setting['slug'], array( 'type' => 'number', 'label' => $setting['label'], 'section' => 'sagaio_udm_menu_container', 'input_attrs' => array( 'min' => 0, 'max' => 100) ));
+            $wp_customize->add_control( $setting['slug'], array( 'type' => 'number', 'label' => $setting['label'], 'section' => 'sagaio_udm_menu_container', 'input_attrs' => array( 'min' => 0, 'max' => 1000) ));
         }
-
     }
 
     static function echo_customizer_styles() {
@@ -349,6 +387,7 @@ class UserDropdownMenu {
         $sagaio_udm_menu_border_color = get_option('sagaio_udm_menu_border_color', '#f1f1f1');
         $sagaio_udm_menu_indicator_color = get_option('sagaio_udm_menu_indicator_color', '#f1f1f1');
 
+        $sagaio_udm_menu_width = get_option('sagaio_udm_menu_width', '200');
         $sagaio_udm_menu_margin_top = get_option('sagaio_udm_menu_margin_top', '15');
         $sagaio_udm_menu_padding_top = get_option('sagaio_udm_menu_padding_top', '10');
         $sagaio_udm_menu_padding_right = get_option('sagaio_udm_menu_padding_right', '10');
@@ -369,9 +408,12 @@ class UserDropdownMenu {
         $sagaio_udm_user_header_font_family = get_option('sagaio_udm_user_header_font_family', 'Arial, sans-serif');
         $sagaio_udm_user_header_font_style = get_option('sagaio_udm_user_header_font_style', 'bold');
         $sagaio_udm_user_header_font_size = get_option('sagaio_udm_user_header_font_size', '12');
+        $sagaio_udm_user_header_line_height = get_option('sagaio_udm_user_header_line_height', '12');
         $sagaio_udm_user_font_family = get_option('sagaio_udm_user_font_family', 'Arial, sans-serif');
         $sagaio_udm_user_font_style = get_option('sagaio_udm_user_font_style', 'normal');
         $sagaio_udm_user_font_size = get_option('sagaio_udm_user_font_size', '14');
+        $sagaio_udm_user_line_height = get_option('sagaio_udm_user_line_height', '26');
+        $sagaio_udm_display_user_bottom_border = get_option('sagaio_udm_display_user_bottom_border', true);
 
         $sagaio_udm_login_input_font_family = get_option('sagaio_udm_login_input_font_family', 'Arial, sans-serif');
         $sagaio_udm_login_input_font_style = get_option('sagaio_udm_login_input_font_style', 'bold');
@@ -430,11 +472,17 @@ class UserDropdownMenu {
         $sagaio_udm_login_header_line_height = get_option('sagaio_udm_login_header_line_height', '24');
 
         // Alignments
+        $sagaio_udm_user_header_alignment = get_option('sagaio_udm_user_header_alignment', 'left');
         $sagaio_udm_login_header_alignment = get_option('sagaio_udm_login_header_alignment', 'left');
         $sagaio_udm_login_button_alignment = get_option('sagaio_udm_login_button_alignment', 'left');
 
         // Outer Wrapper Position
         $sagaio_udm_icon_outer_wrapper_position = get_option('sagaio_udm_icon_outer_wrapper_position', 'relative');
+        $sagaio_udm_icon_outer_wrapper_float = get_option('sagaio_udm_icon_outer_wrapper_float', 'relative');
+        $sagaio_udm_icon_margin_top = get_option('sagaio_udm_icon_margin_top', '0');
+        $sagaio_udm_icon_margin_right = get_option('sagaio_udm_icon_margin_right', '0');
+        $sagaio_udm_icon_margin_bottom = get_option('sagaio_udm_icon_margin_bottom', '0');
+        $sagaio_udm_icon_margin_left = get_option('sagaio_udm_icon_margin_left', '0');
 
         // Determine if we whould display labels for the input fields
         $display_login_labels = get_option('sagaio_udm_display_login_labels', false);
@@ -447,6 +495,9 @@ class UserDropdownMenu {
         $style = '<style>';
         $style .= '#sagaio-udm-wrapper {
             position: '.$sagaio_udm_icon_outer_wrapper_position.' !important;
+            display: inline-block;
+            float:  '.$sagaio_udm_icon_outer_wrapper_float.' !important;
+            margin: '.$sagaio_udm_icon_margin_top.'px '.$sagaio_udm_icon_margin_right.'px '.$sagaio_udm_icon_margin_bottom.'px '.$sagaio_udm_icon_margin_left.'px;
         }';
         $style .= '#sagaio-udm-inner-wrapper {
             position: relative !important;
@@ -459,6 +510,7 @@ class UserDropdownMenu {
             list-style: none !important;
             padding: '.$sagaio_udm_menu_padding_top.'px '.$sagaio_udm_menu_padding_right.'px '.$sagaio_udm_menu_padding_bottom.'px '.$sagaio_udm_menu_padding_left.'px !important;
             border-radius: '.$sagaio_udm_menu_border_radius.'px !important;
+            width: '.$sagaio_udm_menu_width.'px;
         }';
         $style .= '.sagaio-udm-menu-item {
             background: '.$sagaio_udm_menu_item_background_color.';
@@ -466,11 +518,13 @@ class UserDropdownMenu {
             padding: '.$sagaio_udm_menu_item_padding_top_bottom.'px '.$sagaio_udm_menu_item_padding_left_right.'px;
             display: block;
             font-size: '.$sagaio_udm_menu_item_font_size.'px;
-            line-height: '.$sagaio_udm_menu_item_line_height.'px;
+            line-height: '.$sagaio_udm_menu_item_line_height.'px !important;
         }';
         $style .= '.sagaio-udm-menu-item:first-child {
             border-top-left-radius: '.$sagaio_udm_menu_border_radius.'px;
             border-top-right-radius: '.$sagaio_udm_menu_border_radius.'px;
+        }';
+        $style .= '.sagaio-udm-menu-item {
             border-bottom: '.$sagaio_udm_menu_item_border_width.'px '.$sagaio_udm_menu_item_border_style.' '.$sagaio_udm_menu_item_border_color.' !important;
         }';
         $style .= '.sagaio-udm-menu-item:last-child {
@@ -490,16 +544,44 @@ class UserDropdownMenu {
             background-size: contain;
             background-repeat: no-repeat;
         }';
+
+        if($sagaio_udm_user_header_alignment == 'left') {
+            $style .= '.sagaio-udm-menu-user-header, .sagaio-udm-menu-user {
+                text-align: left;
+            }';
+        }
+
+        if($sagaio_udm_user_header_alignment == 'center') {
+            $style .= '.sagaio-udm-menu-user-header, .sagaio-udm-menu-user {
+                text-align: center;
+            }';
+        }
+
+        if($sagaio_udm_user_header_alignment == 'right') {
+            $style .= '.sagaio-udm-menu-user-header, .sagaio-udm-menu-user {
+                text-align: right;
+            }';
+        }
+
         $style .= '.sagaio-udm-menu-user-header {
             font-family: '.$sagaio_udm_user_header_font_family.';
             font-weight: '.$sagaio_udm_user_header_font_style.';
             font-size: '.$sagaio_udm_user_header_font_size.'px;
+            line-height: '.$sagaio_udm_user_header_line_height.'px;
         }';
         $style .= '.sagaio-udm-menu-user {
             font-family: '.$sagaio_udm_user_font_family.';
             font-weight: '.$sagaio_udm_user_font_style.';
             font-size: '.$sagaio_udm_user_font_size.'px;
+            line-height: '.$sagaio_udm_user_line_height.'px;
         }';
+
+        if($sagaio_udm_display_user_bottom_border) {
+
+            $style .= '.sagaio-udm-menu-user {
+                border-bottom: '.$sagaio_udm_menu_item_border_width.'px '.$sagaio_udm_menu_item_border_style.' '.$sagaio_udm_menu_item_border_color.' !important;
+            }';
+        }
 
         if($sagaio_udm_login_header_alignment == 'left') {
             $style .= '.sagaio-udm-login-header {
@@ -614,12 +696,14 @@ class UserDropdownMenu {
 
         if( ($locations = get_nav_menu_locations()) && (isset($locations[$holder]))) {
 
+            $dropdown_menu_position = get_option('sagaio_udm_menu_container_position', 'right');
+
             $menu = get_term( $locations[$holder], 'nav_menu' );
 
             $menu_items = wp_get_nav_menu_items($menu->term_id);
 
             $menu_list = '<div id="sagaio-udm-wrapper"><div id="sagaio-udm-inner-wrapper"><div class="dropdown sagaio-udm-icon" data-toggle="dropdown"></div>' . "\n";
-            $menu_list .= '<div class="dropdown-menu sagaio-udm-menu">' . "\n";
+            $menu_list .= '<div class="dropdown-menu sagaio-udm-menu dropdown-menu-'.$dropdown_menu_position.'">' . "\n";
 
             // Check if user is logged in
             if( is_user_logged_in() ) {
@@ -631,12 +715,12 @@ class UserDropdownMenu {
                 $logout_text = '';
 
                 // Determine if we whould display the user in the menu
-                $display_user = get_option('sagaio_udm_display_user') ? true : false;
+                $display_user = get_option('sagaio_udm_display_user', true);
                 if($display_user) {
 
                 // Determine if we whould display the user header in the menu
                     if(get_option('sagaio_udm_display_user_header')) {
-                        $user_header = empty(get_option('sagaio_udm_user_header')) ? __('User', 'sagaio-udm') : get_option('sagaio_udm_user_header') ;
+                        $user_header = get_option('sagaio_udm_user_header', __('User', 'sagaio-udm'));
                         // Add header to the menu
                         $menu_list .= '<div class="sagaio-udm-menu-user-header">'.$user_header.'</div>' ."\n";
                     }
@@ -709,7 +793,7 @@ class UserDropdownMenu {
             }
 
             $menu_list .= '</div>' ."\n";
-            $menu_list .= '</div></div></div>' ."\n";
+            $menu_list .= '</div></div>' ."\n";
 
             wp_enqueue_style( 'udm-bootstrap-css');
             wp_enqueue_style( 'udm-style');
